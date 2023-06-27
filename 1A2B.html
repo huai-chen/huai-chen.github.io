@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h3>1A2B小遊戲</h3>
+  <h3>請輸入4個不重複的數字</h3>
+  <input type="number" id="inputNum" placeholder="0123">
+  <button id="submit">submit</button> <br>
+  <textarea name="record" id="" cols="30" rows="10"></textarea> <br>
+  <button id="start">start</button>
+  <button id="restart">restart</button>
+  <button id="answer">answer</button>
+
+
+  <script>
+    //DOM各元素
+    let text = document.querySelector("textarea");
+    let input = document.getElementById("inputNum");
+    let btnSub = document.getElementById("submit");
+    let btnSta = document.getElementById("start");
+    let btnRe = document.getElementById("restart");
+    let btnAns = document.getElementById("answer");
+    let msg = document.createElement("div");
+    let textLog = "", C = 0, ans;
+
+
+    //按鈕呼叫事件
+    window.onload = function () {
+      btnSta.addEventListener("click", start)
+      btnSub.addEventListener("click", submit.bind(event));
+      btnRe.addEventListener("click", restart.bind(event));
+      btnAns.addEventListener("click", showAns.bind(event));
+
+    }
+
+    //四個不重複的隨機變數答案
+    function randomAns() {
+      let answerArray = [];
+      while (answerArray.length < 4) {
+        let random = Math.floor(Math.random() * 9);
+        if (answerArray.indexOf(random) === -1) {
+          answerArray.push(random);
+        }
+      }
+      return answerArray;
+
+    }
+
+    //預設按鈕
+    text.disabled = true;
+    btnSub.disabled = true;
+    btnRe.disabled = true;
+    btnAns.disabled = true;
+
+    //遊戲開始
+    function start() {
+      btnSub.disabled = false;
+      btnSta.disabled = true;
+      return ans = randomAns();
+
+    }
+
+    //提交輸入數字按鈕事件
+    function submit() {
+      btnRe.disabled = false;
+      btnAns.disabled = false;
+
+      //輸入數字（字串）轉自陣列
+      let inputNum = [];
+      for (let i = 0; i < 4; i++) {
+        if (inputNum.indexOf(parseInt(input.value[i])) === -1 && input.value[i] != null) {
+          inputNum.push(parseInt(input.value[i]));
+        }
+        else {
+          alert("請重新輸入4個不重複的數字");
+          input.value = "";
+          return;
+        }
+
+      }
+      console.log(input.value.length);
+
+      if (input.value.length != 4) {
+        alert("請重新輸入4個不重複的數字");
+        input.value = "";
+        return;
+      }
+
+      //判斷輸入數字與隨機變數答案，為幾Ａ幾Ｂ
+      let A = 0, B = 0;
+      for (let input = 0; input < 4; input++) {
+        if (inputNum[input] == ans[input]) {
+          A++;
+        }
+        if (ans.indexOf(inputNum[input]) != -1 &&
+          inputNum[input] != ans[input]) {
+          B++;
+        }
+      }
+      console.log(`${A}A${B}B`);
+
+      //輸入框清空，將猜數字的log呈現在文字框中
+      C++;
+      textLog = (`第${C}次${input.value}  ${A}A${B}B`);
+      input.value = "";
+      msg.append(textLog, "\n");
+      console.dir(msg);
+      text.value = msg.innerText;
+      console.dir(text);
+
+      //猜對數字，結束遊戲
+      if (A == 4) {
+        alert(`答案是${ans}，答對了！`)
+        restart();
+        btnSta.disabled = false;
+        btnSub.disabled = true;
+        btnRe.disabled = true;
+        btnAns.disabled = true;
+      }
+    }
+
+    //重新開始
+    function restart() {
+      input.value = "";
+      textLog = "";
+      C = 0;
+      text.value = "";
+      msg.innerText = "";
+      btnAns.disabled = false;
+      btnSub.disabled = false;
+      return ans = randomAns();
+    }
+
+    //顯示答案
+    function showAns() {
+      alert(`答案是${ans}`);
+      restart();
+      btnAns.disabled = true;
+      btnSub.disabled = true;
+    }
+
+  </script>
+</body>
+
+</html>
