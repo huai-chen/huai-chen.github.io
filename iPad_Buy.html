@@ -83,7 +83,7 @@
   <button id="iPhone14Pro">iPhone 14 Pro</button>
   <button id="iPadAir">iPad Air</button>
   <button id="MacBookPro">MacBook Pro</button>
-  <img width="1200px" height="630px" src="./hw_pic/apple.png" class="picFirst">
+  <img width="1200px" height="630px" src="https://huai-chen.github.io/hw_pic/apple.png" class="picFirst">
   <div id="msg" class="row"></div>
 
 
@@ -241,7 +241,7 @@
       pic.remove();
       let inputColorArray = [], inputStorageArray = [], inputNetworkArray = [],
         StoragePrice = 0, NetworkPrice = 0, TotalPrice = 0;
-      let imgurl = `http://127.0.0.1:5500/hw_pic/${appleProduct.product[1]}`
+      let imgurl = `https://huai-chen.github.io/hw_pic/${appleProduct.product[1]}`
 
       //DOM template元素
       let imgProduct = cloneCard.querySelector(".img-left");
@@ -259,7 +259,7 @@
       appleProduct.color.forEach((color, index) => {
         inputColor[index].value = color;
         labelColor[index].innerText = color;
-        imgColor[index].src = `http://127.0.0.1:5500/hw_pic/${color}.png`;
+        imgColor[index].src = `https://huai-chen.github.io/hw_pic/${color}.png`;
         inputColorArray.push(inputColor[index]);
 
       });
@@ -277,7 +277,7 @@
         inputColor[index].addEventListener("click", function () {
           let findColor = inputColorArray.find(x => x.checked == true)
           if (inputColor[index].value == findColor.value) {
-            imgProduct.src = `http://127.0.0.1:5500/hw_pic/${picture}`;
+            imgProduct.src = `https://huai-chen.github.io/hw_pic/${picture}`;
           };
         })
 
