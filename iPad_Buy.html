@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apple</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <style>
+    h1 {
+      font-family: "微軟正黑體", sans-serif;
+      text-align: center;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    button {
+      background-color: transparent;
+      padding: 8px;
+      margin-bottom: 20px;
+      color: black;
+      cursor: pointer;
+    }
+
+    .picFirst {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .msg {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .pic {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .productColor {
+      display: flex;
+      flex-direction: column;
+      background-color: transparent;
+      padding: 8px;
+      margin: 50px;
+      font-size: 20px;
+    }
+
+    .img-color {
+      width: 30px;
+      height: 30px;
+    }
+
+    .productStorage {
+      display: flex;
+      flex-direction: column;
+      background-color: transparent;
+      padding: 8px;
+      margin: 50px;
+      font-size: 20px;
+    }
+
+    .productPrice {
+      display: flex;
+      flex-direction: column;
+      background-color: transparent;
+      padding: 8px;
+      margin: 50px;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>購買Apple產品</h1>
+  <button id="iPhone14Pro">iPhone 14 Pro</button>
+  <button id="iPadAir">iPad Air</button>
+  <button id="MacBookPro">MacBook Pro</button>
+  <img width="1200px" height="630px" src="./hw_pic/apple.png" class="picFirst">
+  <div id="msg" class="row"></div>
+
+
+  <template id="showProduct">
+    <div class="pic" style="width: 500px; height: 400px;">
+      <img src="" class="img-left" alt="...">
+    </div>
+    <div class="productColor">
+      <div class="radioColor">
+        <input type="radio" name="Color" value="">
+        <label>
+          <img src="" class="img-color" alt="">
+          <span class="label-color"></span>
+        </label>
+      </div>
+      <div class="radioColor">
+        <input type="radio" name="Color" value="">
+        <label>
+          <img src="" class="img-color" alt="">
+          <span class="label-color"></span>
+        </label>
+      </div>
+      <div class="radioColor">
+        <input type="radio" name="Color" value="">
+        <label>
+          <img src="" class="img-color" alt="">
+          <span class="label-color"></span>
+        </label>
+      </div>
+      <div class="radioColor">
+        <input type="radio" name="Color" value="">
+        <label>
+          <img src="" class="img-color" alt="">
+          <span class="label-color"></span>
+        </label>
+      </div>
+      <div class="radioColor">
+        <input type="radio" name="Color" value="">
+        <label>
+          <img src="" class="img-color" alt="">
+          <span class="label-color"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="productStorage">
+      <div class="radioStorage">
+        <input type="radio" name="Storage" value="">
+        <label>
+          <span class="label-Storage"></span>
+          <span class="label-Storage-price"></span>
+        </label>
+      </div>
+      <div class="radioStorage">
+        <input type="radio" name="Storage" value="">
+        <label>
+          <span class="label-Storage"></span>
+          <span class="label-Storage-price"></span>
+        </label>
+      </div>
+      <div class="radioStorage">
+        <input type="radio" name="Storage" value="">
+        <label>
+          <span class="label-Storage"></span>
+          <span class="label-Storage-price"></span>
+        </label>
+      </div>
+      <div class="radioStorage">
+        <input type="radio" name="Storage" value="">
+        <label>
+          <span class="label-Storage"></span>
+          <span class="label-Storage-price"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="productPrice">
+      <label>
+        <span class="label-price"></span>
+        <span class="label-product-price"></span>
+      </label>
+    </div>
+  </template>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+  <script type='module'>
+    let row, cardTemplate;
+    let allCardString = "";
+    import { $g } from './modules/helpers.js';
+    row = $g('.row');
+    cardTemplate = $g('#showProduct');
+    //json資料
+    const url = "https://raw.githubusercontent.com/huai-chen/FileStorage/main/apple2023";
+    //抓取DOM
+    // let ipadColor = document.querySelectorAll('input[name="ipadColor"]');
+    let btnIphone = document.getElementById('iPhone14Pro');
+    let btnIpad = document.getElementById('iPadAir');
+    let btnMac = document.getElementById('MacBookPro');
+    let pic = document.querySelector("img");
+
+    let appleArray = [], cloneCard;
+
+    window.onload = function () {
+      btnIphone.addEventListener("click", requestIpadJson.bind(event, url, btnIphone.id));
+      btnIpad.addEventListener("click", requestIpadJson.bind(event, url, btnIpad.id));
+      btnMac.addEventListener("click", requestIpadJson.bind(event, url, btnMac.id));
+    }
+
+    //fetch取得json資料
+    function requestIpadJson(uri, btn) {
+      fetch(uri)
+        .then((res) => res.json())
+        .then(res => {
+          appleArray = res;
+
+          //json資料中找出對應產品
+          let indexProduct = appleArray.findIndex(function (item) {
+            return item.product[0] == btn;
+          })
+          // console.log(indexProduct);
+          let parentElement = getProduct(appleArray[indexProduct])
+
+          //載入對應產品資料
+          if (row.firstChild == null) {
+            row.append(getProduct(appleArray[indexProduct]));
+          }
+          else {
+            while (row.firstChild) {
+              row.removeChild(row.firstChild);
+            }
+            row.append(getProduct(appleArray[indexProduct]));
+          }
+        })
+        .catch(err => {
+          console.log("fetch err");
+          console.log(err);
+        })
+
+    }
+
+    //DocumentFragment template導入資料
+    function getProduct(appleProduct) {
+      //會複製 DocumentFragment 中的內容，並創建一個新的 DOM 節點副本。
+      cloneCard = cardTemplate.content.cloneNode(true);
+      //移除首頁圖片標籤
+      pic.remove();
+      let inputColorArray = [], inputStorageArray = [], inputNetworkArray = [],
+        StoragePrice = 0, NetworkPrice = 0, TotalPrice = 0;
+      let imgurl = `http://127.0.0.1:5500/hw_pic/${appleProduct.product[1]}`
+
+      //DOM template元素
+      let imgProduct = cloneCard.querySelector(".img-left");
+      imgProduct.src = imgurl;
+      let inputColor = cloneCard.querySelectorAll('input[name="Color"]');
+      let imgColor = cloneCard.querySelectorAll(".img-color");
+      let labelColor = cloneCard.querySelectorAll(".label-color");
+      let inputStorage = cloneCard.querySelectorAll('input[name="Storage"]');
+      let labelStorage = cloneCard.querySelectorAll(".label-Storage");
+      let labelStoragePrice = cloneCard.querySelectorAll(".label-Storage-price");
+      let labelPrice = cloneCard.querySelector(".label-price");
+      let labelProductPrice = cloneCard.querySelector(".label-product-price");
+
+      //導入產品顏色選項
+      appleProduct.color.forEach((color, index) => {
+        inputColor[index].value = color;
+        labelColor[index].innerText = color;
+        imgColor[index].src = `http://127.0.0.1:5500/hw_pic/${color}.png`;
+        inputColorArray.push(inputColor[index]);
+
+      });
+
+      //刪除多餘的顏色選項
+      console.log(inputColor.length);
+      console.log(inputColorArray.length);
+      for (let i = inputColor.length - 1; i > inputColorArray.length - 1; i--) {
+        inputColor[i].remove();
+      }
+
+
+      //導入產品顏色對應之照片
+      appleProduct.picture.forEach((picture, index, array) => {
+        inputColor[index].addEventListener("click", function () {
+          let findColor = inputColorArray.find(x => x.checked == true)
+          if (inputColor[index].value == findColor.value) {
+            imgProduct.src = `http://127.0.0.1:5500/hw_pic/${picture}`;
+          };
+        })
+
+      })
+
+      //刪除多餘的顏色選項
+      console.log(inputColor.length);
+      console.log(inputColorArray.length);
+      for (let i = inputColor.length - 1; i > inputColorArray.length - 1; i--) {
+        imgColor[i].remove();
+      }
+
+      //導入產品硬碟選項
+      appleProduct.storage.forEach((storage, index) => {
+        inputStorage[index].value = storage.memory;
+        labelStorage[index].innerText = storage.memory;
+        labelStoragePrice[index].innerText = `NT$ ${storage.price}  `;
+        inputStorageArray.push(inputStorage[index]);
+
+        inputStorage[index].addEventListener("click", function () {
+          let findStorage = inputStorageArray.find(x => x.checked == true)
+          if (inputStorage[index].value == findStorage.value) {
+            StoragePrice = storage.price;
+            labelPrice.innerText = "價格試算$";
+            labelProductPrice.innerText = StoragePrice;
+          }
+        })
+
+      })
+
+      //刪除多餘的硬碟選項
+      for (let i = inputStorage.length - 1; i > inputStorageArray.length - 1; i--) {
+        inputStorage[i].remove();
+      }
+
+
+      return cloneCard;
+    }
+
+
+  </script>
+
+</body>
+
+</html>
