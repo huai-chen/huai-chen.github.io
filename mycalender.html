@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>myCalender</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row mt-5">
+      <h1 id="year - month">{0000}年{00}月</h1>
+    </div>
+    <div class="row">
+      <div class="col">
+        <table class="table text-center">
+          <thead>
+            <tr>
+              <th>日</th>
+              <th>一</th>
+              <th>二</th>
+              <th>三</th>
+              <th>四</th>
+              <th>五</th>
+              <th>六</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 渲染日曆 -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col  d-flex justify-content-between">
+        <button onclick="lastMonth()" type="button" class="btn vtn-primary btn-info">上個月</button>
+        <button onclick="thinMonth()" type="button" class="btn vtn-primary btn-warning">這個月</button>
+        <button onclick="nextMonth()" type="button" class="btn vtn-primary btn-info">下個月</button>
+      </div>
+    </div>
+
+    <!-- 新增行程 Modal -->
+    <div class="modal fade" id="add-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">新增行程</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input id="add-date" type="text" readonly>
+            <input id="add-todo" type="text">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            <button onclick="addTodoItem()" type="button" class="btn btn-primary" id="addBtn">新增</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 刪除與編輯行程 Modal -->
+    <div class="modal fade" id="adit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">編輯行程</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input id="del-date" type="text" readonly>
+            <textarea id="del-todo" cols="18" rows="3"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            <button onclick="delTodoItem()" type="button" class="btn btn-primary">刪除</button>
+            <button onclick="aditTodoItem()" type="button" class="btn btn-primary">修改</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+  <script>
+    //宣告變數
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth();
+    let date = today.getDate();
+    let liText, liCount;
+
+    //DOM
+    const head = document.querySelector("h1");
+    const tbody = document.querySelector("tbody");
+    const addModal = document.querySelector("#add-modal");
+    const addDate = document.querySelector("#add-date");
+    const addTodo = document.querySelector("#add-todo");
+    const aditModal = document.querySelector("#adit-modal");
+    const delDate = document.querySelector("#del-date");
+    const delTodo = document.querySelector("#del-todo");
+    const addBtn = document.getElementById("#addBtn");
+    //bootstrap instance
+    const addModalInstance = bootstrap.Modal.getOrCreateInstance(addModal);
+    const delModalInstance = bootstrap.Modal.getOrCreateInstance(aditModal);
+
+    //function
+
+    //渲染行事曆日期
+    function getCalender() {
+      tbody.innerText = "";
+      head.innerText = `${year}年${month + 1}月`;
+      let firstOfDay = new Date(year, month, 1).getDay();
+      let dayOfMonth = new Date(year, month + 1, 0).getDate();
+      let day = 1;
+      let li;
+      for (let row = 1; row <= Math.ceil((firstOfDay + dayOfMonth) / 7); row++) {
+        let tr = document.createElement("tr");
+        tbody.appendChild(tr);
+
+        for (let col = 0; col <= 6; col++) {
+          let td = document.createElement("td");
+          tr.appendChild(td);
+          //上個月
+          if (row == 1 && col < firstOfDay) {
+            td.innerText = "x";
+          }
+          else {
+            //這個月
+            if (day <= dayOfMonth) {
+              td.innerText = day;
+              let copyDay = day;
+              liCount = 0;
+
+
+              //新增行事曆渲染
+              let todoList = localStorage.getItem(`${year}-${month + 1}-${copyDay}`)
+              if (todoList != null) {
+                todoList = JSON.parse(todoList)
+                if (Array.isArray(todoList) && todoList.length > 0) {
+                  let ul = document.createElement("ul")
+                  ul.style.listStyle = "none";
+                  todoList.forEach(item => {
+                    li = document.createElement("li");
+                    li.innerText = item;
+                    ul.appendChild(li);
+                  })
+                  td.appendChild(ul);
+
+                  //刪除或編輯行事曆渲染                  
+                  let aditDay = td.innerText[0] + td.innerText[1];
+                  console.log(aditDay);
+                  liText = td.querySelectorAll("li");
+
+                  console.log(liText);
+                  liText.forEach((item, idx) => {
+                    // console.log(idx);
+                    // console.log(item);
+
+                    // 行程li元素觸發編輯監聽事件
+                    item.onclick = function (td) {
+                      delDate.value = `${year}-${month + 1}-${aditDay}`;
+                      console.log(`copyDay ${copyDay}`);
+                      delTodo.value = item.innerText;
+                      liCount = idx;
+                      console.log(`liCount ${liCount}`);
+                      delModalInstance.show();
+                      td.stopPropagation(); //阻止事件冒泡
+                    }
+                  })
+                }
+              }
+              //行程td元素觸發新增監聽事件
+              td.onclick = function () {
+                addDate.value = `${year}-${month + 1}-${copyDay}`;
+                addTodo.value = ""
+                addModalInstance.show();
+              }
+            }
+            //下個月
+            else {
+              td.innerText = "o";
+            }
+            day++;
+          }
+        }
+      }
+    }
+
+    //上個月按鈕
+    function lastMonth() {
+      month--;
+      if (month < 0) {
+        month = 11
+        year--;
+      }
+      getCalender();
+    }
+
+    //這個月按鈕
+    function thinMonth() {
+      month = today.getMonth();
+      year = today.getFullYear();
+      getCalender();
+    }
+
+    //上個月按鈕
+    function nextMonth() {
+      month++;
+      if (month > 11) {
+        month = 0;
+        year++;
+      }
+      getCalender();
+    }
+
+    // 新增行程按鈕
+    function addTodoItem() {
+      let date = addDate.value;
+      let todo = addTodo.value;
+      let todoList = localStorage.getItem(date)
+
+      if (todo == "" || todo == null) {
+        alert("請新增行程！")
+      } else {
+        if (todoList == null) {
+          todoList = [todo]
+        }
+        else {
+          todoList = JSON.parse(todoList);
+          todoList.push(todo);
+        }
+        localStorage.setItem(date, JSON.stringify(todoList))
+        addModalInstance.hide();
+        getCalender();
+      }
+    }
+
+    // 刪除行程按鈕
+    function delTodoItem() {
+      let date = delDate.value;
+      let todo = delTodo.value;
+      let todoList = localStorage.getItem(date)
+
+      if (todoList == null) {
+        todoList = [todo]
+      }
+      else {
+        todoList = JSON.parse(todoList);
+        let index = todoList.indexOf(todo);
+        todoList.splice(index, 1);
+      }
+      if (todoList.length < 1) {
+        localStorage.removeItem(date, JSON.stringify(todoList));
+      }
+      else {
+        localStorage.setItem(date, JSON.stringify(todoList));
+      }
+      delModalInstance.hide();
+      getCalender();
+    }
+
+    //  修改行程按鈕
+    function aditTodoItem() {
+      let date = delDate.value;
+      let todo = delTodo.value;
+      let index = liCount;
+      let todoList = localStorage.getItem(date)
+      if (todo == "" || todo == null) {
+        alert("行程不能為空值！")
+      } else {
+        if (todoList == null) {
+          todoList = [todo]
+        }
+        else {
+          todoList = JSON.parse(todoList);
+          console.log(todoList);
+          todoList[index] = delTodo.value;
+          console.log(todoList[index]);
+        }
+        localStorage.setItem(date, JSON.stringify(todoList));
+        delModalInstance.hide();
+        getCalender();
+      }
+    }
+
+    //window_onload
+    window.onload = function () {
+      getCalender();
+    }
+
+  </script>
+</body>
+
+</html>
