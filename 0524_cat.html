@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="reset.css">
+    
+    <style>
+        /* body{
+            padding-top: 40px;
+        } */
+        .contact {
+            width: 100%;
+            height: 40px;
+            background-color: black;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+        }
+        .social, .phone {
+            display: flex;
+            margin-top: 10px;
+        }
+        .phone{
+            margin-left: 50px;
+        }
+        .social{
+            margin-right: 50px;
+        }
+        .social img {
+            width: 20px;
+            height: 20px;
+            padding: 0px 5px 0px;
+        }
+        nav{
+            width: 100%;
+            background-color: #fff;
+            color: black;
+            display: flex;
+            justify-content: space-evenly;
+            /* position: fixed; */
+            left: 0;
+            /* top: 40px; */
+            z-index: 100;
+        }
+        .title{
+            margin-top: 25px;
+            display: flex;
+        }
+        nav img{
+            width: 50px;
+            height: 50px;
+        }
+        nav h1{
+            font-size: 60px;
+            color: #535353;
+            margin-bottom: 5px;
+        }
+        .title h1 a{
+            text-decoration: none;
+            color: black;
+        }
+        .menu{
+            display: inline-block;
+            margin-top: 45px;
+            font-size: 30px;
+            
+        }
+        .menu a {
+            padding: 0px 30px;
+            text-decoration: none;
+            color: black;
+        }
+        .menu a:hover{
+            text-decoration: underline;
+            text-decoration-color: #ff9933;
+        }
+        button{
+            width: 150px;
+            height: 50px;
+            margin-top: 25px;
+        }
+
+        nav button{
+            background-color: #fff;
+            border: solid 2px;
+            border-color: #ff9933;
+            color: #ff9933;
+        }
+
+        nav button:hover{
+            color: #fff;
+            background-color: #7abee9;
+            border-color: #7abee9;
+        }
+        .animals img{
+            width: 100%;
+            
+        }
+        .animals{
+            position: relative;
+        }
+        .animals .text{
+            position: absolute;
+            top: 150px;
+            left: 100px;
+        }
+        .text h2, .text_us h2, .help h1{
+            font-size: 50px;
+            margin-bottom: 30px;
+        }
+        .text h1{
+            font-size: 80px;
+            color: #7abee9;
+        }
+        .text p{
+            font-size: 24px;
+        }
+        .text button, .text_us button{
+            color: #fff;
+            background-color: #ff9933;
+            border: solid 2px;
+            border-color: #ff9933;
+        }
+        .text button:hover, .text_us button:hover{
+            background-color: black;
+            border-color: #000000;
+        }
+
+        .us img{
+            width: 300%;
+        }
+        .us{
+            display: flex;
+        }
+        .text_us{
+            display: flex;
+            flex-direction: column;
+            margin-left: 400px;
+            margin-right: 100px;
+            justify-content: center;
+        }
+        .text_us h1, .help h2{
+            font-size: 30px;
+            color: #7abee9;
+            margin-bottom: 20px;
+        }
+        .text_us p{
+            color: #b1b8bc;
+            margin: 5px;
+        }
+        
+        .help .img{
+            display: flex;
+        }
+        .help{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .img-container{
+            position: relative;
+            padding: 0px 10px;
+        }
+        .img-container:hover{
+            /* background-image: linear-gradient(transparent 0% , black 100%); */
+            filter: brightness(0.5);
+        }
+        .caption{
+            position: absolute;
+            bottom: 20px;
+            right: 150px;
+        }
+        .caption a{
+            text-decoration: none;
+            color: #fff;
+            font-size: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="contact">
+        <div class="phone">Toll-free:(123)456-7890</div>
+        <ul class="social">
+            <li><img src="./assets/asset 15.svg" alt="twitter"></li>
+            <li><img src="./assets/asset 16.svg" alt="facetime"></li>
+            <li><img src="./assets/asset 17.svg" alt="call"></li>
+            <li><img src="./assets/asset 18.svg" alt="message"></li>
+        </ul>
+    </div>
+
+    <nav>
+        <div class="title">
+            <a href=""><img src="./assets/asset 0.png" alt=""></a>
+            <h1><a href="">Anilove</a></h1>
+        </div>
+        <div class="menu">
+            <a href="">Home</a>
+            <a href="">About
+                    <!-- <a href="">Our History</a>
+                    <a href="">About Our Mission
+                            <a href="">Blog</a></a>
+                    <a href="">Our Team</a>
+                    <a href="">Our Project</a></a> -->
+            <a href="">Events</a>
+            <a href="">News</a>
+            <a href="">Contacts</a>
+        </div>
+        <button>DONATE NOW!</button>
+    </nav>
+
+    <div class="banner animals">
+        <img src="./assets/asset 4.jpeg" alt="cat">
+            <div class="text">
+                <h2>Animals Need</h2>
+                <h1><b>YOUR Help!</b></h1>
+                <br><p>You can chip in with money & effort!</p>
+                <button>DONATE NOW!</button>
+            </div>
+    </div>
+
+    <div class="banner us">
+        <div class="img_us">
+            <img src="./assets/asset 1.jpeg" alt="us">
+        </div>
+        <div class="text_us">
+            <h2>About us</h2>
+            <h1>What Makes Us Care About Pets?</h1>
+            <p>If it wasn’t for our founder’s childhood spent on a ranch in northern Texas, surrounded by domestic animals and pets all the time till she went to college – there might have been no Anilove animal shelter now. So as soon as she graduated with her Veterinary degree 12 years ago, she already knew what she will be doing for a living.</p>
+            <p>All in all, with thousands of animals saved off the streets and cared for every year, we hope to encourage much more pet adoptions to happen!</p>
+            <button>LEARN MORE</button>
+        </div>  
+    </div>
+
+    <div class="banner help">
+        <h1>How You Can Help</h1>
+        <h2>There Are Countless Ways You Can Join In & Help Us!</h2>
+        <div class="img">
+            <div class="img-container">
+                <img src="./assets/asset 5.jpeg" alt="Volunteer">
+                <div class="caption"><a href="">Volunteer</a></div>
+            </div>
+            <div class="img-container">
+                <img src="./assets/asset 6.jpeg" alt="Adopt">
+                <div class="caption"><a href="">Adopt</a></div>
+            </div>
+            <div class="img-container">
+                <img src="./assets/asset 7.jpeg" alt="Sponsor">
+                <div class="caption"><a href="">Sponsor</a></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

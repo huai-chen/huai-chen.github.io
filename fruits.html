@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .row{
+            
+            justify-content: center;
+            align-items: center;
+            /* border: none; */
+            /* transition: 0.3s; */
+        }
+        [box-id]{
+            width: 80px;
+            height: 80px;
+            /* border: solid 5px red; */
+        }
+        [empty-id]{
+            width: 400px;
+            height: 80px;
+            /* border: solid 5px blue; */
+        }
+        .money img{
+            width: 100px;
+            height: 100px;
+        }
+        .row img{
+            width: 80px;
+            height: 80px;
+            /* transition: 0.3s; */
+            /* border: solid 5px red; */
+        }
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+        <div class="d-flex justify-content-lg-around mt-5">
+            <!-- <div>
+                <span class="input-group-text">win</span>
+                <input type="text" class="form-control" id="win">
+            </div>
+            <div>
+                <span class="input-group-text">credit</span>
+                <input type="text" class="form-control" id="credit">
+            </div> -->
+        </div>
+        <div class="row mt-5">
+            <div box-id="1" class="orange clo-1">
+                <img src="./fruits/orange.png" alt="orange">
+            </div>
+            <div box-id="2" class="bell clo-1">
+                <img src="./fruits/bell.png" alt="bell">
+            </div>
+            <div box-id="3" class="bar clo-1">
+                <img src="./fruits/bar.png" alt="bar">
+            </div>
+            <div box-id="4" class="bar clo-1">
+                <img src="./fruits/bar.png" alt="bar">
+            </div>
+            <div box-id="5" class="apple clo-1">
+                <img src="./fruits/apple.png" alt="apple">
+            </div>
+            <div box-id="6" class="apple clo-1">
+                <img src="./fruits/apple.png" alt="apple">
+            </div>
+            <div box-id="7" class="lemon clo-1">
+                <img src="./fruits/lemon.png" alt="lemon">
+            </div>
+        </div>
+        <div class="row">
+            <div box-id="24" class="bell clo-1">
+                <img src="./fruits/bell.png" alt="bell">
+            </div>
+            <div empty-id="1" class="clo-5"></div>
+            <div box-id="8" class="watermelon clo-1">
+                <img src="./fruits/watermelon.png" alt="watermelon">
+            </div>
+        </div>
+        <div class="row">
+            <div box-id="23" class="apple clo-1">
+                <img src="./fruits/apple.png" alt="apple">
+            </div>
+            <div empty-id="2" class="clo-5"></div>
+            <div box-id="9" class="watermelon clo-1">
+                <img src="./fruits/watermelon.png" alt="watermelon">
+            </div>
+        </div>
+        <div class="row">
+            <div box-id="22" class="bell clo-1">
+                <img src="./fruits/bell.png" alt="bell">
+            </div>
+            <div empty-id="3" class="clo-5"></div>
+            <div box-id="10" class="lemon clo-1">
+                <img src="./fruits/lemon.png" alt="lemon">
+            </div>
+        </div>
+        <div class="row">
+            <div box-id="21" class="star clo-1">
+                <img src="./fruits/star.png" alt="star">
+            </div>
+            <div empty-id="4" class="clo-5"></div>
+            <div box-id="11" class="applr clo-1">
+                <img src="./fruits/apple.png" alt="apple">
+            </div>
+        </div>
+        <div class="row">
+            <div box-id="20" class="star clo-1">
+                <img src="./fruits/star.png" alt="star">
+            </div>
+            <div empty-id="5" class="clo-5"></div>
+            <div box-id="12" class="orange clo-1">
+                <img src="./fruits/orange.png" alt="orange">
+            </div>
+        </div>
+        <div class="row">
+            <div box-id="19" class="lemon clo-1">
+                <img src="./fruits/lemon.png" alt="lemon">
+            </div>
+            <div box-id="18" class="lemon clo-1">
+                <img src="./fruits/lemon.png" alt="lemon">
+            </div>
+            <div box-id="17" class="apple clo-1">
+                <img src="./fruits/apple.png" alt="apple">
+            </div>
+            <div box-id="16" class="11 clo-1">
+                <img src="./fruits/11.png" alt="11">
+            </div>
+            <div box-id="15" class="11 clo-1">
+                <img src="./fruits/11.png" alt="11">
+            </div>
+            <div box-id="14" class="bell clo-1">
+                <img src="./fruits/bell.png" alt="bell">
+            </div>
+            <div box-id="13" class="orange clo-1">
+                <img src="./fruits/orange.png" alt="orange">
+            </div>
+        </div>
+        <div class="d-flex justify-content-lg-around  mt-5">
+            <!-- <button type="button" class="btn btn-outline-danger" id="big">比大</button>
+            <button type="button" class="btn btn-outline-warning" id="small">比小</button> -->
+            <button type="button" class="btn btn-outline-success" id="start">開始</button>
+        </div>
+        <!-- <div class="d-flex justify-content-lg-around  mt-5">
+            <div class="money">
+                <span class="input-group-text">100</span>
+                <input type="text" class="form-control" id="bar">
+                <img src="./fruits/bar.png" alt="bar">
+            </div>
+            <div class="money">
+                <span class="input-group-text">40</span>
+                <input type="text" class="form-control" id="bar">
+                <img src="./fruits/11.png" alt="11">
+            </div>
+            <div class="money">
+                <span class="input-group-text">30</span>
+                <input type="text" class="form-control" id="bar">
+                <img src="./fruits/star.png" alt="star">
+            </div>
+            <div class="money">
+                <span class="input-group-text">20</span>
+                <input type="text" class="form-control" id="bar">
+                <img src="./fruits/watermelon.png" alt="watermelon">
+            </div>
+            <div class="money">
+                <span class="input-group-text">20</span>
+                <input type="text" class="form-control" id="bar">
+                <img src="./fruits/bell.png" alt="bell">
+            </div>
+            <div class="money">
+                <span class="input-group-text">15</span>
+                <input type="text" class="form-control" id="bar">
+                <img src="./fruits/lemon.png" alt="lemon">
+            </div>
+            <div class="money">
+                <span class="input-group-text">10</span>
+                <input type="text" class="form-control" id="bar">
+                <img src="./fruits/orange.png" alt="orange">
+            </div>
+            <div class="money">
+                <span class="input-group-text">5</span>
+                <input type="text" class="form-control" id="bar">
+                <img src="./fruits/apple.png" alt="apple">
+            </div>
+        </div> -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    <script>
+        //DOM
+        let box = document.querySelectorAll('[box-id]');
+        const startBtn = document.getElementById('start');
+        // const bigBtn = document.getElementById('big');
+        // const smallBtn = document.getElementById('small');
+        const showAns = document.querySelector('[empty-id]');
+        
+        //宣告變數
+        let steps = 0; //剩餘的步數
+        let allSteps = 0; //全部的步數
+        let currentIndex = 0; //目前走到哪一格
+        let speed; //速率(越大則越慢)
+        let finalStep = 0; //最後一步
+        let lastStep = 0; //上一回最後一步
+        let random;
+        let img = [];
+        let h1;
+        box = Array.from(box)
+        .sort((a,b)=>
+        {
+            return a.getAttributeNode('box-id').value-b.getAttributeNode('box-id').value;
+        });
+        for( let i=0; i<box.length; i++){
+                img.push(box[i].querySelector('img'));
+            }
+
+        //事件
+        startBtn.addEventListener('click',function(){
+        
+            // turnAround()
+            //     .then(res1=>{
+            //     console.log(res1)
+            //     return showAnswer()
+            //     })
+            //     .then(res2=>{
+            //     console.log(res2)
+            //     })
+            //     .catch(err=>{
+            //     console.warn(err)
+            //     })
+            //     .finally(()=>{
+            //     console.log("promise完成了！")
+            //     })
+            // speed=1;
+            // setTimeout(turnAround(),speed);
+            turnAround();
+                
+            
+        });
+
+        //function
+
+        //前面多跑幾圈一整圈的
+        function turnAround(){
+            //宣告變數
+            currentIndex = lastStep;
+            img.forEach(item=>{
+                item.style.border = '0px solid';
+            })
+            random = Math.floor(Math.random()*24)+48;
+            console.log(random);
+            finalStep = random%box.length;
+            console.log(`finalStep ${finalStep}`);
+            console.log(`lastStep ${lastStep}`);
+            
+            // return new Promise ((resolve,reject)=>{
+            for( currentIndex=lastStep; currentIndex<random; currentIndex++){
+                {(function(i){
+                        // if(i<Math.floor((random/3))){
+                    setTimeout(()=>{
+                    img[i%box.length].style.border = '2px solid red';
+                    },100*i)
+
+                    setTimeout(()=>{
+                    img[i%box.length].style.border = '0px solid';
+                    },100*i+100)
+                        // }
+                    // else{
+                    //     setTimeout(()=>{
+                    //     console.log(`else`);
+                    //     console.log(`(random/3) ${Math.floor((random/3))}`);
+                    //     console.log(`i ${i}`);
+                    // img[i%box.length].style.border = '2px solid red';
+                    // },100*i+100*i)
+
+                    // setTimeout(()=>{
+                    // img[i%box.length].style.border = '0px solid';
+                    // },100*i+100+100*i)
+                    // }
+                    }) (currentIndex)
+
+                    setTimeout(()=>{
+                    img[finalStep].style.border = '2px solid red'
+                    },100*random+100)
+                }
+            }
+            lastStep=finalStep;
+            showAnswer();
+            // })
+            
+        }
+
+        //呈現結果
+        function showAnswer(){
+            
+            
+            
+            return new Promise((resolve,reject)=>{
+                if( document.querySelector("h1") != null){
+                        showAns.removeChild(h1);
+                    }
+                setTimeout(()=>{
+                    console.log(showAns);
+                    console.log(img[lastStep].alt);
+                    h1 = document.createElement("h1");
+                    h1.style.display='flex';
+                    h1.style.justifyContent='center';
+                    showAns.appendChild(h1);
+                    h1.innerText = '';
+                    h1.innerText = `${img[lastStep].alt}中獎!`;
+                    },100*random+100)
+                })
+                // showAns.remove('h1');
+            }
+
+        //投注金額
+        function betMoney(){
+
+        }
+
+    </script>
+
+</body>
+</html>
