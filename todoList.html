@@ -31,10 +31,11 @@
         const addTodo = document.querySelector("#add-todo");
 
         //宣告
-        let todoList = JSON.parse(localStorage.getItem('todoData')) || [];
+        let dataKey = 'todoData';
+        let todoList = JSON.parse(localStorage.getItem(dataKey)) || [];
         let li;
         let checkTodo;
-        let delTodo;
+        let aditTodo;
         let aditBtn;
         let delBtn;
         let liText;
@@ -48,30 +49,43 @@
                 if (Array.isArray(todoList) && todoList.length > 0) {
                     ul.style.listStyle = "none";
                     createList(todoList);
+                    // if(document.querySelectorAll("[check-id]") != null){
+                    //     if (checkTodo[idx].checked == true){
+                    //         checkTodo[idx].checked == true
+                    //     }
+                    //     return;
+                    // }
 
                     //DOM元素
                     liText = document.querySelectorAll("li");
                     checkTodo = document.querySelectorAll("[check-id]");
-                    delTodo = document.querySelectorAll("[adit-id]");
+                    aditTodo = document.querySelectorAll("[adit-id]");
                     aditBtn = document.querySelectorAll("[btn-id]");
                     saveBtn = document.querySelectorAll("[save-id]");
                     delBtn = document.querySelectorAll("[del-id]");
 
                     //呼叫各個onclick元素
                     liText.forEach((item, idx) => {
-
+                        
+                        //check的畫面留存
+                        if (todoList[idx].check == true) {
+                                aditTodo[idx].style.textDecoration = "line-through";
+                                checkTodo[idx].setAttribute('checked','true');
+                            }
                         //check列表
                         checkTodo[idx].onclick = function (li) {
                             if (checkTodo[idx].checked == true) {
-                                let check = "finished";
-                                todoList[idx] += check;
-                                delTodo[idx].style.textDecoration = "line-through";
-                                localStorage.setItem('todoData', JSON.stringify(todoList));
+                                
+                                todoList[idx].check = true;
+                                //localStorage.setItem('todoData', JSON.stringify(todoList));
+                                saveLocal(dataKey,todoList);
+                                aditTodo[idx].style.textDecoration = "line-through";
                             }
                             else {
-                                todoList[idx] = todoList[idx].replace("finished", "");
-                                delTodo[idx].style.textDecoration = "none";
-                                localStorage.setItem('todoData', JSON.stringify(todoList));
+                                todoList[idx].check = false;
+                                //localStorage.setItem('todoData', JSON.stringify(todoList));
+                                saveLocal(dataKey,todoList);
+                                aditTodo[idx].style.textDecoration = "none";
                             }
 
 
@@ -81,15 +95,15 @@
                         aditBtn[idx].onclick = function () {
                             aditBtn[idx].innerText = "保存"
                             aditBtn[idx].className = "btn btn-success";
-                            delTodo[idx].disabled = false;
+                            aditTodo[idx].disabled = false;
 
                             //保存按鈕事件
                             saveBtn[idx].onclick = function () {
-                                let del = delTodo[idx].value;
-                                aditTodoItem(del, idx, saveBtn[idx], aditBtn[idx]);
+                                let adit = aditTodo[idx].value;
+                                aditTodoItem(adit, idx, saveBtn[idx], aditBtn[idx]);
                                 aditBtn[idx].innerText = "編輯"
                                 aditBtn[idx].className = "btn btn-warning";
-                                delTodo[idx].disabled = true;
+                                aditTodo[idx].disabled = true;
 
                             }
 
@@ -97,7 +111,7 @@
 
                         //刪除按鈕事件
                         delBtn[idx].onclick = function () {
-                            let del = delTodo[idx].value;
+                            let del = aditTodo[idx].value;
                             item.remove();
                             delTodoItem(del, idx);
                         }
@@ -111,34 +125,37 @@
         //產出待辦事項清單
         function createList(todoList) {
             let str = "";
-            for (let i = 0; i < todoList.length; i++) {
-                str += `    <li class="list-item" style="margin: 5px 0px">
-        <input check-id="check-todo" type="checkbox" >
-        <input adit-id="adit-todo" type="text" value="${todoList[i]}" disabled="true">
-        <button save-id="save-btn" btn-id="adit-btn"  type="button" class="btn btn-warning">編輯</button>
-        <button del-id="del-btn"  type="button" class="btn btn-danger">刪除</button>
-    </li>`}
+            todoList.forEach((item,idx)=>{
+                str += `<li class="list-item" style="margin: 5px 0px">
+                            <input check-id="check-todo" type="checkbox">
+                            <input adit-id="adit-todo" type="text" value="${item.value}" disabled="true">
+                            <button save-id="save-btn" btn-id="adit-btn"  type="button" class="btn btn-warning">編輯</button>
+                            <button del-id="del-btn"  type="button" class="btn btn-danger">刪除</button>
+                        </li>`}); 
+                        
             ul.innerHTML = str;
         }
 
         //新增事項
         function addTodoItem() {
             let todo = addTodo.value;
+            let defaultCheck = false;
             if (todo == "" || todo == null) {
                 alert("請新增行程！")
                 return;
             }
             else {
                 if (todoList == null) {
-                    todoList = [todo]
-                    console.log([todo]);
-                    console.log(todo);
+                    todoList = [{value: todo, check: defaultCheck }]
+                    console.log(todoList);
+                    // console.log(todo);
                 }
                 else {
-                    todoList.push(todo);
+                    todoList.push({value: todo, check: defaultCheck });
                 }
             }
-            localStorage.setItem('todoData', JSON.stringify(todoList));
+            //localStorage.setItem('todoData', JSON.stringify(todoList));
+            saveLocal(dataKey,todoList);
             getTodoList();
 
         }
@@ -153,12 +170,13 @@
                 
             } else {
                 if (todoList == null) {
-                    todoList = [todo]
+                    todoList[idx].value = [todo]
                 }
                 else {
-                    todoList[idx] = todo;
+                    todoList[idx].value = todo;
                 }
-                localStorage.setItem('todoData', JSON.stringify(todoList));
+                //localStorage.setItem('todoData', JSON.stringify(todoList));
+                saveLocal(dataKey,todoList);
                 getTodoList();
             }
         }
@@ -176,9 +194,15 @@
                 localStorage.removeItem('todoData', JSON.stringify(todoList));
             }
             else {
-                localStorage.setItem('todoData', JSON.stringify(todoList));
+                //localStorage.setItem('todoData', JSON.stringify(todoList));
+                saveLocal(dataKey,todoList);
             }
             getTodoList();
+        }
+
+        //儲存localStorage資料
+        function saveLocal(dataKey,todoList){
+            localStorage.setItem(dataKey, JSON.stringify(todoList));
         }
 
         //window.onload
