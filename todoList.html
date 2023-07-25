@@ -32,7 +32,7 @@
 
         //宣告全域變數
         const dataKey = 'todoData';
-        const todoList = JSON.parse(localStorage.getItem(dataKey)) || [];
+        let todoList = JSON.parse(localStorage.getItem(dataKey)) || [];
 
         //function
         //畫面渲染
