@@ -30,31 +30,30 @@
         const ul = document.querySelector("ul");
         const addTodo = document.querySelector("#add-todo");
 
-        //宣告
-        let dataKey = 'todoData';
-        let todoList = JSON.parse(localStorage.getItem(dataKey)) || [];
-        let li;
-        let checkTodo;
-        let aditTodo;
-        let aditBtn;
-        let delBtn;
-        let liText;
+        //宣告全域變數
+        const dataKey = 'todoData';
+        const todoList = JSON.parse(localStorage.getItem(dataKey)) || [];
 
         //function
         //畫面渲染
         function getTodoList() {
+
+            //宣告區域變數
+            let checkTodo;
+            let aditTodo;
+            let aditBtn;
+            let saveBtn;
+            let delBtn;
+            let liText;
+
+            //新增input為空值
             addTodo.value = "";
+
             //確認localStorage有資料
             if (todoList != null) {
                 if (Array.isArray(todoList) && todoList.length > 0) {
                     ul.style.listStyle = "none";
                     createList(todoList);
-                    // if(document.querySelectorAll("[check-id]") != null){
-                    //     if (checkTodo[idx].checked == true){
-                    //         checkTodo[idx].checked == true
-                    //     }
-                    //     return;
-                    // }
 
                     //DOM元素
                     liText = document.querySelectorAll("li");
@@ -66,25 +65,25 @@
 
                     //呼叫各個onclick元素
                     liText.forEach((item, idx) => {
-                        
+
                         //check的畫面留存
                         if (todoList[idx].check == true) {
-                                aditTodo[idx].style.textDecoration = "line-through";
-                                checkTodo[idx].setAttribute('checked','true');
-                            }
+                            aditTodo[idx].style.textDecoration = "line-through";
+                            checkTodo[idx].setAttribute('checked', 'true');
+                        }
                         //check列表
                         checkTodo[idx].onclick = function (li) {
                             if (checkTodo[idx].checked == true) {
-                                
+
                                 todoList[idx].check = true;
                                 //localStorage.setItem('todoData', JSON.stringify(todoList));
-                                saveLocal(dataKey,todoList);
+                                saveLocal(todoList);
                                 aditTodo[idx].style.textDecoration = "line-through";
                             }
                             else {
                                 todoList[idx].check = false;
                                 //localStorage.setItem('todoData', JSON.stringify(todoList));
-                                saveLocal(dataKey,todoList);
+                                saveLocal(todoList);
                                 aditTodo[idx].style.textDecoration = "none";
                             }
 
@@ -125,14 +124,14 @@
         //產出待辦事項清單
         function createList(todoList) {
             let str = "";
-            todoList.forEach((item,idx)=>{
+            todoList.forEach((item, idx) => {
                 str += `<li class="list-item" style="margin: 5px 0px">
                             <input check-id="check-todo" type="checkbox">
-                            <input adit-id="adit-todo" type="text" value="${item.value}" disabled="true">
+                            <input adit-id="adit-todo" type="text" value="${item.value}" disabled="true" >
                             <button save-id="save-btn" btn-id="adit-btn"  type="button" class="btn btn-warning">編輯</button>
                             <button del-id="del-btn"  type="button" class="btn btn-danger">刪除</button>
-                        </li>`}); 
-                        
+                        </li>`});
+
             ul.innerHTML = str;
         }
 
@@ -146,16 +145,16 @@
             }
             else {
                 if (todoList == null) {
-                    todoList = [{value: todo, check: defaultCheck }]
+                    todoList = [{ value: todo, check: defaultCheck }]
                     console.log(todoList);
                     // console.log(todo);
                 }
                 else {
-                    todoList.push({value: todo, check: defaultCheck });
+                    todoList.push({ value: todo, check: defaultCheck });
                 }
             }
             //localStorage.setItem('todoData', JSON.stringify(todoList));
-            saveLocal(dataKey,todoList);
+            saveLocal(todoList);
             getTodoList();
 
         }
@@ -167,7 +166,7 @@
                 alert("行程不能為空值！")
                 saveBtn[idx].disabled = true;
                 aditBtn[idx].disabled = true;
-                
+
             } else {
                 if (todoList == null) {
                     todoList[idx].value = [todo]
@@ -176,7 +175,7 @@
                     todoList[idx].value = todo;
                 }
                 //localStorage.setItem('todoData', JSON.stringify(todoList));
-                saveLocal(dataKey,todoList);
+                saveLocal(todoList);
                 getTodoList();
             }
         }
@@ -195,13 +194,13 @@
             }
             else {
                 //localStorage.setItem('todoData', JSON.stringify(todoList));
-                saveLocal(dataKey,todoList);
+                saveLocal(todoList);
             }
             getTodoList();
         }
 
         //儲存localStorage資料
-        function saveLocal(dataKey,todoList){
+        function saveLocal(todoList) {
             localStorage.setItem(dataKey, JSON.stringify(todoList));
         }
 
@@ -212,5 +211,4 @@
     </script>
 
 </body>
-
 </html>
